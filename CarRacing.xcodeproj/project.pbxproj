@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11A5D10646EA5F7389D0C282 /* Pods_CarRacing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1147A1E172391898F088B5E7 /* Pods_CarRacing.framework */; };
+		430E81DE2B7570FF0007004D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E81DD2B7570FF0007004D /* StartView.swift */; };
 		439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B212B7545FF00C0BB35 /* AppDelegate.swift */; };
 		439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */; };
-		439F5B262B7545FF00C0BB35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B252B7545FF00C0BB35 /* ViewController.swift */; };
+		439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B252B7545FF00C0BB35 /* StartViewController.swift */; };
 		439F5B2B2B75460000C0BB35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 439F5B2A2B75460000C0BB35 /* Assets.xcassets */; };
 		439F5B2E2B75460000C0BB35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 439F5B2C2B75460000C0BB35 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1147A1E172391898F088B5E7 /* Pods_CarRacing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarRacing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		359D411BB49EF86784AD5A16 /* Pods-CarRacing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRacing.release.xcconfig"; path = "Target Support Files/Pods-CarRacing/Pods-CarRacing.release.xcconfig"; sourceTree = "<group>"; };
+		430E81DD2B7570FF0007004D /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		439F5B1E2B7545FF00C0BB35 /* CarRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439F5B212B7545FF00C0BB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		439F5B252B7545FF00C0BB35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		439F5B252B7545FF00C0BB35 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		439F5B2A2B75460000C0BB35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		439F5B2D2B75460000C0BB35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		439F5B2F2B75460000C0BB35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8CAE8CD0C316F2554054835 /* Pods-CarRacing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRacing.debug.xcconfig"; path = "Target Support Files/Pods-CarRacing/Pods-CarRacing.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11A5D10646EA5F7389D0C282 /* Pods_CarRacing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		430E81DB2B756E190007004D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				439F5B212B7545FF00C0BB35 /* AppDelegate.swift */,
+				439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */,
+				439F5B2A2B75460000C0BB35 /* Assets.xcassets */,
+				439F5B2C2B75460000C0BB35 /* LaunchScreen.storyboard */,
+				439F5B2F2B75460000C0BB35 /* Info.plist */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		430E81DC2B756EA40007004D /* StartScreen */ = {
+			isa = PBXGroup;
+			children = (
+				430E81DD2B7570FF0007004D /* StartView.swift */,
+				439F5B252B7545FF00C0BB35 /* StartViewController.swift */,
+			);
+			path = StartScreen;
+			sourceTree = "<group>";
+		};
 		439F5B152B7545FF00C0BB35 = {
 			isa = PBXGroup;
 			children = (
 				439F5B202B7545FF00C0BB35 /* CarRacing */,
 				439F5B1F2B7545FF00C0BB35 /* Products */,
+				6A82370C66BA58F2FFECBFBF /* Pods */,
+				B1753049784E4942CCA27A72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +84,27 @@
 		439F5B202B7545FF00C0BB35 /* CarRacing */ = {
 			isa = PBXGroup;
 			children = (
-				439F5B212B7545FF00C0BB35 /* AppDelegate.swift */,
-				439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */,
-				439F5B252B7545FF00C0BB35 /* ViewController.swift */,
-				439F5B2A2B75460000C0BB35 /* Assets.xcassets */,
-				439F5B2C2B75460000C0BB35 /* LaunchScreen.storyboard */,
-				439F5B2F2B75460000C0BB35 /* Info.plist */,
+				430E81DB2B756E190007004D /* Application */,
+				430E81DC2B756EA40007004D /* StartScreen */,
 			);
 			path = CarRacing;
+			sourceTree = "<group>";
+		};
+		6A82370C66BA58F2FFECBFBF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8CAE8CD0C316F2554054835 /* Pods-CarRacing.debug.xcconfig */,
+				359D411BB49EF86784AD5A16 /* Pods-CarRacing.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B1753049784E4942CCA27A72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1147A1E172391898F088B5E7 /* Pods_CarRacing.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +114,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 439F5B322B75460000C0BB35 /* Build configuration list for PBXNativeTarget "CarRacing" */;
 			buildPhases = (
+				778EADD9E14F0B08429BF992 /* [CP] Check Pods Manifest.lock */,
 				439F5B1A2B7545FF00C0BB35 /* Sources */,
 				439F5B1B2B7545FF00C0BB35 /* Frameworks */,
 				439F5B1C2B7545FF00C0BB35 /* Resources */,
+				0B5080B71E4E59C27484BD33 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,14 +174,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B5080B71E4E59C27484BD33 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CarRacing/Pods-CarRacing-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CarRacing/Pods-CarRacing-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarRacing/Pods-CarRacing-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		778EADD9E14F0B08429BF992 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarRacing-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		439F5B1A2B7545FF00C0BB35 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				439F5B262B7545FF00C0BB35 /* ViewController.swift in Sources */,
+				439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */,
 				439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */,
 				439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */,
+				430E81DE2B7570FF0007004D /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,14 +363,16 @@
 		};
 		439F5B332B75460000C0BB35 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8CAE8CD0C316F2554054835 /* Pods-CarRacing.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8545KP6MGS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CarRacing/Info.plist;
+				INFOPLIST_FILE = CarRacing/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -306,14 +396,16 @@
 		};
 		439F5B342B75460000C0BB35 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 359D411BB49EF86784AD5A16 /* Pods-CarRacing.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8545KP6MGS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CarRacing/Info.plist;
+				INFOPLIST_FILE = CarRacing/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
