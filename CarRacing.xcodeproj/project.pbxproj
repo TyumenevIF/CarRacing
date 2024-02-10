@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		11A5D10646EA5F7389D0C282 /* Pods_CarRacing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1147A1E172391898F088B5E7 /* Pods_CarRacing.framework */; };
 		430E81DE2B7570FF0007004D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430E81DD2B7570FF0007004D /* StartView.swift */; };
+		432EF1C22B77D2C800FF771B /* RaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C12B77D2C800FF771B /* RaceViewController.swift */; };
+		432EF1C62B77D73E00FF771B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C52B77D73E00FF771B /* SettingsViewController.swift */; };
+		432EF1C82B77D76600FF771B /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C72B77D76600FF771B /* RecordsViewController.swift */; };
 		439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B212B7545FF00C0BB35 /* AppDelegate.swift */; };
 		439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */; };
 		439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B252B7545FF00C0BB35 /* StartViewController.swift */; };
@@ -20,6 +23,9 @@
 		1147A1E172391898F088B5E7 /* Pods_CarRacing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarRacing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		359D411BB49EF86784AD5A16 /* Pods-CarRacing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarRacing.release.xcconfig"; path = "Target Support Files/Pods-CarRacing/Pods-CarRacing.release.xcconfig"; sourceTree = "<group>"; };
 		430E81DD2B7570FF0007004D /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		432EF1C12B77D2C800FF771B /* RaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceViewController.swift; sourceTree = "<group>"; };
+		432EF1C52B77D73E00FF771B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		432EF1C72B77D76600FF771B /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
 		439F5B1E2B7545FF00C0BB35 /* CarRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439F5B212B7545FF00C0BB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +69,30 @@
 			path = StartScreen;
 			sourceTree = "<group>";
 		};
+		432EF1C02B77D29A00FF771B /* RaceScreen */ = {
+			isa = PBXGroup;
+			children = (
+				432EF1C12B77D2C800FF771B /* RaceViewController.swift */,
+			);
+			path = RaceScreen;
+			sourceTree = "<group>";
+		};
+		432EF1C32B77D71200FF771B /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				432EF1C52B77D73E00FF771B /* SettingsViewController.swift */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
+		432EF1C42B77D72300FF771B /* RecordsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				432EF1C72B77D76600FF771B /* RecordsViewController.swift */,
+			);
+			path = RecordsScreen;
+			sourceTree = "<group>";
+		};
 		439F5B152B7545FF00C0BB35 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +116,9 @@
 			children = (
 				430E81DB2B756E190007004D /* Application */,
 				430E81DC2B756EA40007004D /* StartScreen */,
+				432EF1C32B77D71200FF771B /* SettingsScreen */,
+				432EF1C42B77D72300FF771B /* RecordsScreen */,
+				432EF1C02B77D29A00FF771B /* RaceScreen */,
 			);
 			path = CarRacing;
 			sourceTree = "<group>";
@@ -222,9 +255,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */,
+				432EF1C82B77D76600FF771B /* RecordsViewController.swift in Sources */,
 				439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */,
+				432EF1C22B77D2C800FF771B /* RaceViewController.swift in Sources */,
 				439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */,
 				430E81DE2B7570FF0007004D /* StartView.swift in Sources */,
+				432EF1C62B77D73E00FF771B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
