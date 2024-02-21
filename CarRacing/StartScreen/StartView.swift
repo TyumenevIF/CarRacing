@@ -14,7 +14,7 @@ protocol StartViewDelegate: AnyObject {
     func pressRecordsButton(_ view: StartView, sender: UIButton)
 }
 
-class StartView: UIView {
+final class StartView: UIView {
     
     // MARK: - let/var
     
@@ -22,7 +22,7 @@ class StartView: UIView {
 
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "start_screen")
+        imageView.image = .startScreen
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -30,11 +30,11 @@ class StartView: UIView {
     lazy var startButton: UIButton = {
         let button = UIButton()
         button.setTitle("Start", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.titleLabel?.font = .system20
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = .startViewButtonCornerRadius
         button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -42,11 +42,11 @@ class StartView: UIView {
     lazy var settingsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Settings", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.titleLabel?.font = .system20
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = .startViewButtonCornerRadius
         button.addTarget(self, action: #selector(settingsButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -54,11 +54,11 @@ class StartView: UIView {
     lazy var recordsButton: UIButton = {
         let button = UIButton()
         button.setTitle("Records", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 20)
+        button.titleLabel?.font = .system20
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = .startViewButtonCornerRadius
         button.addTarget(self, action: #selector(recordsButtonPressed), for: .touchUpInside)
         return button
     }()

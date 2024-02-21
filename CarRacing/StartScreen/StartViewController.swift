@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
     
     // MARK: - let/var
     
@@ -23,7 +23,8 @@ class StartViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - Private Methods
+    // MARK: - private methods
+    
     private func setSubviews() {
         view.addSubview(startView)
     }
@@ -36,6 +37,7 @@ class StartViewController: UIViewController {
 }
 
 // MARK: - extensions
+
 extension StartViewController: StartViewDelegate {
     
     func pressStartButton(_ view: StartView, sender: UIButton) {
