@@ -100,11 +100,12 @@ final class RaceViewController: UIViewController {
             view.addSubview(stone)
         }
         
-        timeIntervalTimer = Timer.scheduledTimer(timeInterval: 1.0,
+        timeIntervalTimer = Timer.scheduledTimer(timeInterval: .normal,
                                      target: self,
                                      selector: #selector(addOpponentCar),
                                      userInfo: nil,
-                                     repeats: true)
+                                     repeats: true
+        )
     }
     
     private func setUpUI() {
@@ -142,6 +143,8 @@ final class RaceViewController: UIViewController {
         for car in opponentCars {
             if playerCar.frame.intersects(car.frame) {
                 endGame()
+                print("Opponent car frame: \(car.frame)")
+                print("Player car frame: \(playerCar.frame)")
             }
         }
     }
@@ -150,15 +153,32 @@ final class RaceViewController: UIViewController {
         timeIntervalTimer?.invalidate()
         animationDurationTimer?.invalidate()
         print("Игра окончена! Спасибо за игру!")
-//        score = calculateScore()
-//        print("Ваш итоговый счет: \(score)")
-//        if score > highScore {
-//            print("Поздравляем! Вы установили новый рекорд!")
-//            highScore = score
-//        } else {
-//            print("Ваш счет не побил рекорд. Попробуйте еще раз!")
-//        }
-//        saveHighScoreToFile()
+        
+        let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Play Again", style: .default, handler: { _ in
+            self.restartGame()
+        }))
+        alert.addAction(UIAlertAction(title: "Exit", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func restartGame() {
+        for car in opponentCars {
+            car.removeFromSuperview()
+        }
+        
+        opponentCars.removeAll()
+        
+        score = 0
+        scoreLabel.text = "Score: 0"
+        
+        timeIntervalTimer = Timer.scheduledTimer(timeInterval: .normal,
+                                     target: self,
+                                     selector: #selector(addOpponentCar),
+                                     userInfo: nil,
+                                     repeats: true
+        )
     }
     
     // MARK: - target actions
@@ -203,13 +223,23 @@ final class RaceViewController: UIViewController {
     
     @objc func movePlayerCarLeft() {
         if road.frame.origin.x < playerCar.frame.origin.x {
-            playerCar.frame.origin.x -= .sideInterval
+            UIView.animate(withDuration: .standard,
+                           delay: 0.0,
+                           options: .curveLinear,
+                           animations: { [self] in
+                playerCar.frame.origin.x -= .sideInterval
+            }, completion: nil)
         }
     }
     
     @objc func movePlayerCarRight() {        
         if playerCar.frame.origin.x < rightRoadside.frame.origin.x {
-            playerCar.frame.origin.x += .sideInterval
+            UIView.animate(withDuration: .standard,
+                           delay: 0.0,
+                           options: .curveLinear,
+                           animations: { [self] in
+                playerCar.frame.origin.x += .sideInterval
+            }, completion: nil)
         }
     }
 }

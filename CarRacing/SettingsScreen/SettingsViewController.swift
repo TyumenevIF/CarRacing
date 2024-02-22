@@ -138,16 +138,30 @@ final class SettingsViewController: UIViewController {
     }
     
     private func checkCollision() {
+//        for car in opponentCars {
+//            UIView.animate(withDuration: .standard,
+//                           delay: 0.0,
+//                           options: .curveLinear,
+//                           animations: { [self] in
+//                if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
+//                    endGame()
+//                    print("Столкнулись")
+//                }
+//            }, completion: nil)
+//        }
+//        
+//        for car in opponentCars {
+//            if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
+//                endGame()
+//                print("Столкнулись")
+//            }
+//        }
+        
         for car in opponentCars {
-            UIView.animate(withDuration: .standard,
-                           delay: 0.0,
-                           options: .curveLinear,
-                           animations: { [self] in
-                if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
-                    endGame()
-                    print("Столкнулись")
-                }
-            }, completion: nil)
+            if playerCar.frame.intersects(car.frame) {
+                endGame()
+                print("Столкнулись")
+            }
         }
     }
     
@@ -211,15 +225,8 @@ final class SettingsViewController: UIViewController {
                        options: .curveLinear,
                        animations: { [self] in
             opponentCar.frame.origin.y = self.view.frame.height
-//            checkCollision()
-            
-            for car in opponentCars {
-                if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
-                    endGame()
-                    print("Столкнулись")
-                }
-            }
-            
+            playerCar.frame.origin.y = playerCar.frame.origin.y
+            checkCollision()
             print("Opponent car frame: \(opponentCar.frame)")
             print("Player car frame: \(playerCar.frame)")
         }, completion: { _ in
@@ -232,20 +239,24 @@ final class SettingsViewController: UIViewController {
     }
     
     @objc func movePlayerCarLeft() {
-        UIView.animate(withDuration: .standard,
-                       delay: 0.0,
-                       options: .curveLinear,
-                       animations: { [self] in
-            playerCar.frame.origin.x -= .sideInterval
-        }, completion: nil)
+        if road.frame.origin.x < playerCar.frame.origin.x {
+            UIView.animate(withDuration: .standard,
+                           delay: 0.0,
+                           options: .curveLinear,
+                           animations: { [self] in
+                playerCar.frame.origin.x -= .sideInterval
+            }, completion: nil)
+        }
     }
     
     @objc func movePlayerCarRight() {
-        UIView.animate(withDuration: .standard,
-                       delay: 0.0,
-                       options: .curveLinear,
-                       animations: { [self] in
-            playerCar.frame.origin.x += .sideInterval
-        }, completion: nil)
+        if playerCar.frame.origin.x < rightRoadside.frame.origin.x {
+            UIView.animate(withDuration: .standard,
+                           delay: 0.0,
+                           options: .curveLinear,
+                           animations: { [self] in
+                playerCar.frame.origin.x += .sideInterval
+            }, completion: nil)
+        }
     }
 }
