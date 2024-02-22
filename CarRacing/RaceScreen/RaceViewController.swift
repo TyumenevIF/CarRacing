@@ -187,7 +187,7 @@ final class RaceViewController: UIViewController {
         opponentCars.append(opponentCar)
         
         animationDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            opponentCar.frame.origin.y += 25
+            opponentCar.frame.origin.y += 50
             
             self.checkCollision()
             

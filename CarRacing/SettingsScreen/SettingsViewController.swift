@@ -139,9 +139,15 @@ final class SettingsViewController: UIViewController {
     
     private func checkCollision() {
         for car in opponentCars {
-            if ((playerCar.layer.presentation()?.frame.intersects(car.frame)) != nil) {
-                endGame()
-            }
+            UIView.animate(withDuration: .standard,
+                           delay: 0.0,
+                           options: .curveLinear,
+                           animations: { [self] in
+                if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
+                    endGame()
+                    print("Столкнулись")
+                }
+            }, completion: nil)
         }
     }
     
@@ -205,30 +211,41 @@ final class SettingsViewController: UIViewController {
                        options: .curveLinear,
                        animations: { [self] in
             opponentCar.frame.origin.y = self.view.frame.height
+//            checkCollision()
             
             for car in opponentCars {
-                if car.frame.intersects(playerCar.frame) {
-                    print("Пересечение двух UIView")
-//                    endGame()
+                if ((car.layer.presentation()?.frame.intersects(playerCar.frame)) != nil) {
+                    endGame()
+                    print("Столкнулись")
                 }
             }
+            
+            print("Opponent car frame: \(opponentCar.frame)")
+            print("Player car frame: \(playerCar.frame)")
         }, completion: { _ in
+            self.score += 1
+            self.scoreLabel.text = "Score: \(self.score)"
             opponentCar.removeFromSuperview()
             self.opponentCars.remove(at: self.opponentCars.firstIndex(of: opponentCar)!)
         })
-//        checkCollision()
 
     }
     
     @objc func movePlayerCarLeft() {
-        if road.frame.origin.x < playerCar.frame.origin.x {
+        UIView.animate(withDuration: .standard,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
             playerCar.frame.origin.x -= .sideInterval
-        }
+        }, completion: nil)
     }
     
     @objc func movePlayerCarRight() {
-        if playerCar.frame.origin.x < rightRoadside.frame.origin.x {
+        UIView.animate(withDuration: .standard,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
             playerCar.frame.origin.x += .sideInterval
-        }
+        }, completion: nil)
     }
 }
