@@ -120,13 +120,6 @@ final class RaceViewController: UIViewController {
             markingLineLong.frame.origin.y = self.view.frame.height
         },
                        completion: nil)
-        
-        markingLineTimer = Timer.scheduledTimer(timeInterval: .current,
-                                     target: self,
-                                     selector: #selector(animateMarkingLine),
-                                     userInfo: nil,
-                                     repeats: true
-        )
     }
     
     private func setUpTimers() {
@@ -159,17 +152,23 @@ final class RaceViewController: UIViewController {
     }
     
     private func endGame() {
+        scoreLabel.isHidden = true
         opponentCarTimer?.invalidate()
         barrierTimer?.invalidate()
         markingLineTimer?.invalidate()
         
-        let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Play Again", style: .default, handler: { _ in
-            self.restartGame()
-        }))
-        alert.addAction(UIAlertAction(title: "Exit", style: .cancel, handler: nil))
+        let alertController = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
         
-        present(alert, animated: true, completion: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.navigationController?.popViewController(animated: false)
+        }
+        let playAgainAction = UIAlertAction(title: "Play again", style: .default) { _ in
+            self.restartGame()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(playAgainAction)
+
+        present(alertController, animated: true, completion: nil)
     }
     
     private func restartGame() {
@@ -179,12 +178,8 @@ final class RaceViewController: UIViewController {
         opponentCars.removeAll()
         score = 0
         scoreLabel.text = "Score: 0"
-        opponentCarTimer = Timer.scheduledTimer(timeInterval: .normal,
-                                     target: self,
-                                     selector: #selector(addOpponentCar),
-                                     userInfo: nil,
-                                     repeats: true
-        )
+        scoreLabel.isHidden = false
+        setUpTimers()
     }
     
     // MARK: - target actions
