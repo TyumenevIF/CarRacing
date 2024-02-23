@@ -41,19 +41,16 @@ final class StartViewController: UIViewController {
 extension StartViewController: StartViewDelegate {
     
     func pressStartButton(_ view: StartView, sender: UIButton) {
-        print("pressStartButton")
         let raceVC = RaceViewController()
         navigationController?.pushViewController(raceVC, animated: true)
     }
     
     func pressSettingsButton(_ view: StartView, sender: UIButton) {
-        print("pressSettingsButton")
         let settingsVC = SettingsViewController()
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     func pressRecordsButton(_ view: StartView, sender: UIButton) {
-        print("pressRecordsButton")
         let recordsVC = RecordsViewController()
         navigationController?.pushViewController(recordsVC, animated: true)
     }
