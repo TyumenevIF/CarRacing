@@ -179,6 +179,7 @@ final class RaceViewController: UIViewController {
         score = 0
         scoreLabel.text = "Score: 0"
         scoreLabel.isHidden = false
+        playerCar.frame.origin.x = .xPlayerCar
         setUpTimers()
     }
     
@@ -284,7 +285,13 @@ final class RaceViewController: UIViewController {
     
     @objc func checkCollision() {
         for car in opponentCars {
-            if (car.layer.presentation()!.frame.intersects(playerCar.layer.presentation()!.frame)) {
+            if playerCar.layer.presentation()!.frame.intersects(car.layer.presentation()!.frame) {
+                endGame()
+            }
+        }
+        
+        for barrier in barriers {
+            if playerCar.layer.presentation()!.frame.intersects(barrier.layer.presentation()!.frame) {
                 endGame()
             }
         }
@@ -297,7 +304,8 @@ final class RaceViewController: UIViewController {
                            options: .curveLinear,
                            animations: { [self] in
                 playerCar.frame.origin.x -= .sideInterval
-            }, completion: nil)
+            }, 
+                           completion: nil)
         }
     }
     
@@ -308,7 +316,8 @@ final class RaceViewController: UIViewController {
                            options: .curveLinear,
                            animations: { [self] in
                 playerCar.frame.origin.x += .sideInterval
-            }, completion: nil)
+            }, 
+                           completion: nil)
         }
     }
 }
