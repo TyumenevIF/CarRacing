@@ -22,8 +22,8 @@ final class RaceViewController: UIViewController {
     var scoreLabel: UILabel!
     
     var score = 0
-    var timeIntervalTimer: Timer?
-    var animationDurationTimer: Timer?
+    var timer: Timer?
+    var displayLink: CADisplayLink?
     
     // MARK: - lifecycle funcs
     
@@ -100,7 +100,7 @@ final class RaceViewController: UIViewController {
             view.addSubview(stone)
         }
         
-        timeIntervalTimer = Timer.scheduledTimer(timeInterval: .normal,
+        timer = Timer.scheduledTimer(timeInterval: .normal,
                                      target: self,
                                      selector: #selector(addOpponentCar),
                                      userInfo: nil,
@@ -139,20 +139,13 @@ final class RaceViewController: UIViewController {
         view.addSubview(scoreLabel)
     }
     
-    private func checkCollision() {
-        for car in opponentCars {
-            if playerCar.frame.intersects(car.frame) {
-                endGame()
-                print("Opponent car frame: \(car.frame)")
-                print("Player car frame: \(playerCar.frame)")
-            }
-        }
+    private func createDisplayLink() {
+        displayLink = CADisplayLink(target: self, selector: #selector(checkCollision))
+        displayLink?.add(to: .current, forMode: .default)
     }
     
     private func endGame() {
-        timeIntervalTimer?.invalidate()
-        animationDurationTimer?.invalidate()
-        print("Игра окончена! Спасибо за игру!")
+        timer?.invalidate()
         
         let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Play Again", style: .default, handler: { _ in
@@ -167,13 +160,10 @@ final class RaceViewController: UIViewController {
         for car in opponentCars {
             car.removeFromSuperview()
         }
-        
         opponentCars.removeAll()
-        
         score = 0
         scoreLabel.text = "Score: 0"
-        
-        timeIntervalTimer = Timer.scheduledTimer(timeInterval: .normal,
+        timer = Timer.scheduledTimer(timeInterval: .normal,
                                      target: self,
                                      selector: #selector(addOpponentCar),
                                      userInfo: nil,
@@ -206,17 +196,25 @@ final class RaceViewController: UIViewController {
         view.addSubview(opponentCar)
         opponentCars.append(opponentCar)
         
-        animationDurationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            opponentCar.frame.origin.y += 50
+        UIView.animate(withDuration: .quickly,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
+            opponentCar.frame.origin.y = self.view.frame.height
+            createDisplayLink()
             
-            self.checkCollision()
-            
-            if let index = self.opponentCars.firstIndex(of: opponentCar), opponentCar.frame.origin.y > self.playerCar.frame.maxY {
-                self.opponentCars.remove(at: index)
-                self.score += 1
-                self.scoreLabel.text = "Score: \(self.score)"
-                opponentCar.removeFromSuperview()
-                timer.invalidate()
+        }, completion: { _ in
+            self.score += 1
+            self.scoreLabel.text = "Score: \(self.score)"
+            opponentCar.removeFromSuperview()
+            self.opponentCars.remove(at: self.opponentCars.firstIndex(of: opponentCar)!)
+        })
+    }
+    
+    @objc func checkCollision() {
+        for car in opponentCars {
+            if (car.layer.presentation()!.frame.intersects(playerCar.layer.presentation()!.frame)) {
+                endGame()
             }
         }
     }
