@@ -17,25 +17,29 @@ final class RaceViewController: UIViewController {
     var markingLineLong: UIImageView!
     var playerCar: UIImageView!
     var opponentCars = [UIImageView]()
-    var trees: [UIImageView] = []
-    var stones: [UIImageView] = []
+    var barriers: [UIImageView] = []
     var scoreLabel: UILabel!
     
     var score = 0
-    var timer: Timer?
+    var opponentCarTimer: Timer?
+    var barrierTimer: Timer?
+    var markingLineTimer: Timer?
+    
     var displayLink: CADisplayLink?
     
     // MARK: - lifecycle funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupGame()
+        setUpGame()
         setUpUI()
+        setUpMarkingLine()
+        setUpTimers()
     }
     
     // MARK: - private methods
     
-    private func setupGame() {
+    private func setUpGame() {
         leftRoadside = UIImageView(frame: CGRect(x: .xLeftRoadside,
                                                  y: .yLeftRoadside,
                                                  width: .leftRoadsideWidth,
@@ -60,14 +64,6 @@ final class RaceViewController: UIViewController {
         rightRoadside.image = UIImage(named: .rightRoadside_1)
         view.addSubview(rightRoadside)
         
-        markingLineLong = UIImageView(frame: CGRect(x: .xMarkingLineLong,
-                                                    y: .yMarkingLineLong,
-                                                    width: .markingLineLongWidth,
-                                                    height: .markingLineLongHeight)
-        )
-        markingLineLong.image = UIImage(named: .markingLineLong)
-        view.addSubview(markingLineLong)
-        
         playerCar = UIImageView(frame: CGRect(x: .xPlayerCar,
                                               y: .yPlayerCar,
                                               width: .playerCarWidth,
@@ -75,37 +71,6 @@ final class RaceViewController: UIViewController {
         )
         playerCar.image = UIImage(named: .playerCarRed)
         view.addSubview(playerCar)
-        
-        let treeImage = UIImage(named: .tree)
-        for i in 0..<4 {
-            let tree = UIImageView(image: treeImage)
-            tree.frame = CGRect(x: .xTree,
-                                y: .yTree + CGFloat(i) * 150,
-                                width: .treeWidth,
-                                height: .treeHeight
-            )
-            trees.append(tree)
-            view.addSubview(tree)
-        }
-        
-        let stoneImage = UIImage(named: .stone)
-        for i in 0..<4 {
-            let stone = UIImageView(image: stoneImage)
-            stone.frame = CGRect(x: .xStone,
-                                 y: .yStone + CGFloat(i) * 150,
-                                 width: .stoneWidth,
-                                 height: .stoneHeight
-            )
-            stones.append(stone)
-            view.addSubview(stone)
-        }
-        
-        timer = Timer.scheduledTimer(timeInterval: .normal,
-                                     target: self,
-                                     selector: #selector(addOpponentCar),
-                                     userInfo: nil,
-                                     repeats: true
-        )
     }
     
     private func setUpUI() {
@@ -139,13 +104,64 @@ final class RaceViewController: UIViewController {
         view.addSubview(scoreLabel)
     }
     
+    private func setUpMarkingLine() {
+        markingLineLong = UIImageView(frame: CGRect(x: .xMarkingLineLong,
+                                                    y: .yMarkingLineLong,
+                                                    width: .markingLineLongWidth,
+                                                    height: .markingLineLongHeight)
+        )
+        markingLineLong.image = UIImage(named: .markingLineLong)
+        view.addSubview(markingLineLong)
+                
+        UIView.animate(withDuration: .slowly,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
+            markingLineLong.frame.origin.y = self.view.frame.height
+        },
+                       completion: nil)
+        
+        markingLineTimer = Timer.scheduledTimer(timeInterval: .current,
+                                     target: self,
+                                     selector: #selector(animateMarkingLine),
+                                     userInfo: nil,
+                                     repeats: true
+        )
+    }
+    
+    private func setUpTimers() {
+        barrierTimer = Timer.scheduledTimer(timeInterval: .quickly,
+                                     target: self,
+                                     selector: #selector(addBarriers),
+                                     userInfo: nil,
+                                     repeats: true
+        )
+        
+        opponentCarTimer = Timer.scheduledTimer(timeInterval: .quickly,
+                                     target: self,
+                                     selector: #selector(addOpponentCar),
+                                     userInfo: nil,
+                                     repeats: true
+        )
+        
+        markingLineTimer = Timer.scheduledTimer(timeInterval: .current,
+                                     target: self,
+                                     selector: #selector(animateMarkingLine),
+                                     userInfo: nil,
+                                     repeats: true
+        )
+        
+    }
+    
     private func createDisplayLink() {
         displayLink = CADisplayLink(target: self, selector: #selector(checkCollision))
         displayLink?.add(to: .current, forMode: .default)
     }
     
     private func endGame() {
-        timer?.invalidate()
+        opponentCarTimer?.invalidate()
+        barrierTimer?.invalidate()
+        markingLineTimer?.invalidate()
         
         let alert = UIAlertController(title: "Game Over", message: "Your score is \(score)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Play Again", style: .default, handler: { _ in
@@ -163,7 +179,7 @@ final class RaceViewController: UIViewController {
         opponentCars.removeAll()
         score = 0
         scoreLabel.text = "Score: 0"
-        timer = Timer.scheduledTimer(timeInterval: .normal,
+        opponentCarTimer = Timer.scheduledTimer(timeInterval: .normal,
                                      target: self,
                                      selector: #selector(addOpponentCar),
                                      userInfo: nil,
@@ -172,6 +188,66 @@ final class RaceViewController: UIViewController {
     }
     
     // MARK: - target actions
+    
+    @objc func addBarriers() {
+        let leftBarrier = UIImageView(frame: CGRect(x: .xLeftBarrier,
+                                                y: 0,
+                                                width: .barrierWidth,
+                                                height: .barrierHeight)
+        )
+        
+        let rightBarrier = UIImageView(frame: CGRect(x: .xRightBarrier,
+                                                     y: 0,
+                                                     width: .barrierWidth,
+                                                     height: .barrierHeight)
+        )
+        
+        guard let barrierType: String = [
+            .tree,
+            .stone
+        ].randomElement() else { return }
+        
+        leftBarrier.image = UIImage(named: barrierType)
+        view.addSubview(leftBarrier)
+        barriers.append(leftBarrier)
+        
+        guard let barrierType: String = [
+            .tree,
+            .stone
+        ].randomElement() else { return }
+        
+        rightBarrier.image = UIImage(named: barrierType)
+        view.addSubview(rightBarrier)
+        barriers.append(rightBarrier)
+        
+        
+        UIView.animate(withDuration: .slowly,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
+            leftBarrier.frame.origin.y = self.view.frame.height
+            rightBarrier.frame.origin.y = self.view.frame.height
+        },
+                       completion: nil)
+    }
+    
+    @objc func animateMarkingLine() {
+        let markingLine = UIImageView(frame: CGRect(x: .xMarkingLine,
+                                                    y: .yMarkingLine,
+                                                    width: .markingLineWidth,
+                                                    height: .markingLineHeight)
+        )
+        markingLine.image = UIImage(named: .markingLine)
+        view.addSubview(markingLine)
+        
+        UIView.animate(withDuration: .slowly,
+                       delay: 0.0,
+                       options: .curveLinear,
+                       animations: { [self] in
+            markingLine.frame.origin.y = self.view.frame.height
+        },
+                       completion: nil)
+    }
     
     @objc func addOpponentCar() {
         let leftPosition: CGFloat = .opponentCarLeftPosition

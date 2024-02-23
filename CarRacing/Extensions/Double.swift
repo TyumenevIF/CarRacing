@@ -16,10 +16,13 @@ extension Double {
     static let difficult: Double = 1.0
     
     // animation duration
-    static let slowly: Double = 2.0
-    static let medium: Double = 1.5
+    static let slowly: Double = 3.0
+    static let medium: Double = 2.0
     static let quickly: Double = 1.0
     
     // player car move duration
     static let standard: Double = 0.2
+    
+    // marking line speed
+    static let current = quickly / 3
 }

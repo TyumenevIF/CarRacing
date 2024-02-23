@@ -24,7 +24,12 @@ extension CGFloat {
     static let rightRoadsideWidth = UIScreen.main.bounds.width / 4
     static let rightRoadsideHeight = UIScreen.main.bounds.height
     
-    static let xMarkingLineLong = UIScreen.main.bounds.width / 2
+    static let xMarkingLine = UIScreen.main.bounds.width / 2
+    static let yMarkingLine: CGFloat = -markingLineHeight / 2
+    static let markingLineWidth: CGFloat = 1
+    static let markingLineHeight = playerCarHeight / 2
+    
+    static let xMarkingLineLong = xMarkingLine
     static let yMarkingLineLong: CGFloat = 0
     static let markingLineLongWidth: CGFloat = 1
     static let markingLineLongHeight = UIScreen.main.bounds.height
@@ -41,15 +46,10 @@ extension CGFloat {
     static let opponentCarLeftPosition = xRoad + opponentCarWidth / 2
     static let opponentCarRightPosition = xRoad + roadWidth / 2 + opponentCarWidth / 2
     
-    static let xTree = treeWidth / 3
-    static let yTree: CGFloat = 120
-    static let treeWidth = roadWidth / 4
-    static let treeHeight = treeWidth
-    
-    static let xStone = xRightRoadside + stoneWidth * 2 / 3
-    static let yStone: CGFloat = 120
-    static let stoneWidth = roadWidth / 4
-    static let stoneHeight = stoneWidth
+    static let xLeftBarrier = barrierWidth / 3
+    static let xRightBarrier = xRightRoadside + barrierWidth * 2 / 3
+    static let barrierWidth = roadWidth / 4
+    static let barrierHeight = barrierWidth
     
     static let startViewButtonCornerRadius: CGFloat = 10
     static let leftRightButtonWidth: CGFloat = 60
@@ -61,7 +61,6 @@ extension CGFloat {
     static let xRightButton: CGFloat = UIScreen.main.bounds.width - leftRightButtonWidth - trailingOffsetRightButton
     static let yButton = UIScreen.main.bounds.height - bottomOffsetButton
     static let bottomOffsetButton: CGFloat = 90
-    
     
     static let sideInterval = roadWidth / 2
 }
