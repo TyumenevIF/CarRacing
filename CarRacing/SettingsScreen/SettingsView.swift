@@ -43,7 +43,7 @@ final class SettingsView: UIView {
         return view
     }()
     
-    private lazy var photoImage: UIImageView = {
+    lazy var photoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
         imageView.contentMode = .scaleAspectFill
@@ -59,7 +59,7 @@ final class SettingsView: UIView {
         return button
     }()
     
-    private let photoPickerView: UIImagePickerController = {
+    let photoPickerView: UIImagePickerController = {
         let piker = UIImagePickerController()
         piker.allowsEditing = true
         return piker

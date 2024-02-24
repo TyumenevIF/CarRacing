@@ -49,7 +49,12 @@ extension SettingsViewController: SettingsViewDelegate {
     }
     
     func settingsView(_ view: SettingsView, editPhotoPressed button: UIButton) {
-        print("editPhotoPressed")
+        button.alpha = 0.5
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            button.alpha = 1
+            self.present(self.settingsView.photoPickerView, animated: true)
+        }
     }
     
     func settingsView(_ view: SettingsView, saveChangesPressed button: UIButton) {
@@ -57,4 +62,40 @@ extension SettingsViewController: SettingsViewDelegate {
     }
     
     
+}
+
+// MARK: - ImagePickerControllerDelegate
+
+extension SettingsViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func setupPhotoPicker() {
+        settingsView.photoPickerView.delegate = self
+        settingsView.photoPickerView.sourceType = .photoLibrary
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let choosenImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        self.imageLocalPath = save(image: choosenImage)!
+        self.settingsView.photoImage.image = choosenImage
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController {
+    
+    private func save(image: UIImage) -> String? {
+        let fileName = "FileName"
+        let fileURL = documentsUrl.appendingPathComponent(fileName)
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            try? imageData.write(to: fileURL, options: .atomic)
+            return fileName // ----> Save fileName
+        }
+        print("Error saving image")
+        return nil
+    }
 }
