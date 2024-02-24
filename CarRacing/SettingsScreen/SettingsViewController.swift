@@ -111,7 +111,7 @@ final class SettingsViewController: UIViewController {
         label.textColor = .gray
         label.backgroundColor = .clear
         label.textAlignment = .left
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
@@ -200,6 +200,11 @@ final class SettingsViewController: UIViewController {
     
     deinit {
         removeKeyBoardNotification()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
     // MARK: - flow funcs

@@ -37,6 +37,11 @@ final class RaceViewController: UIViewController {
         setUpTimers()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     // MARK: - private methods
     
     private func setUpGame() {
@@ -99,8 +104,12 @@ final class RaceViewController: UIViewController {
         view.addSubview(rightButton)
         
         scoreLabel = UILabel(frame: CGRect(x: view.frame.width - 100, y: 40, width: 100, height: 50))
-        scoreLabel.textAlignment = .center
         scoreLabel.text = "Score: \(score)"
+        scoreLabel.font = .system20
+        scoreLabel.textColor = .white
+        scoreLabel.backgroundColor = .orange
+        scoreLabel.textAlignment = .center
+        scoreLabel.numberOfLines = 1
         view.addSubview(scoreLabel)
     }
     
@@ -198,24 +207,15 @@ final class RaceViewController: UIViewController {
                                                      height: .barrierHeight)
         )
         
-        guard let barrierType: String = [
-            .tree,
-            .stone
-        ].randomElement() else { return }
-        
+        guard let barrierType: String = [ .tree, .stone].randomElement() else { return }
         leftBarrier.image = UIImage(named: barrierType)
         view.addSubview(leftBarrier)
         barriers.append(leftBarrier)
         
-        guard let barrierType: String = [
-            .tree,
-            .stone
-        ].randomElement() else { return }
-        
+        guard let barrierType: String = [ .tree, .stone].randomElement() else { return }
         rightBarrier.image = UIImage(named: barrierType)
         view.addSubview(rightBarrier)
         barriers.append(rightBarrier)
-        
         
         UIView.animate(withDuration: .slowly,
                        delay: 0.0,
