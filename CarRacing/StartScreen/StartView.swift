@@ -34,7 +34,7 @@ final class StartView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = .startViewButtonCornerRadius
+        button.layer.cornerRadius = .buttonCornerRadius
         button.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -46,7 +46,7 @@ final class StartView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = .startViewButtonCornerRadius
+        button.layer.cornerRadius = .buttonCornerRadius
         button.addTarget(self, action: #selector(settingsButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -58,7 +58,7 @@ final class StartView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.contentHorizontalAlignment = .center
         button.backgroundColor = .orange
-        button.layer.cornerRadius = .startViewButtonCornerRadius
+        button.layer.cornerRadius = .buttonCornerRadius
         button.addTarget(self, action: #selector(recordsButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -68,7 +68,7 @@ final class StartView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setSubviews()
-        setupConstraints()
+        setUpConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -84,7 +84,7 @@ final class StartView: UIView {
         addSubview(recordsButton)
     }
     
-    private func setupConstraints() {
+    private func setUpConstraints() {
         backgroundImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

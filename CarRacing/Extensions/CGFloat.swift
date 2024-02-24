@@ -51,7 +51,8 @@ extension CGFloat {
     static let barrierWidth = roadWidth / 4
     static let barrierHeight = barrierWidth
     
-    static let startViewButtonCornerRadius: CGFloat = 10
+    static let buttonCornerRadius: CGFloat = 10
+    
     static let leftRightButtonWidth: CGFloat = 60
     static let leftRightButtonHeight: CGFloat = 60
     static let leftRightButtonCornerRadius: CGFloat = 10

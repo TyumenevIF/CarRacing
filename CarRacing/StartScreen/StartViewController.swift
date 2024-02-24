@@ -23,7 +23,7 @@ final class StartViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - private methods
+    // MARK: - flow funcs
     
     private func setSubviews() {
         view.addSubview(startView)

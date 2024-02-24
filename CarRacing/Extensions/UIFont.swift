@@ -9,5 +9,6 @@ import Foundation
 import UIKit
 
 extension UIFont {
+    static let system16: UIFont = .systemFont(ofSize: 16)
     static let system20: UIFont = .systemFont(ofSize: 20)
 }
