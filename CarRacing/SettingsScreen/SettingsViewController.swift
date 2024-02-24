@@ -14,6 +14,11 @@ final class SettingsViewController: UIViewController {
     
     private let settingsView = SettingsView()
     
+    var documentsUrl: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    var imageLocalPath : String = ""
+    
     // MARK: - lifecycle funcs
     
     override func viewDidLoad() {
@@ -38,8 +43,9 @@ final class SettingsViewController: UIViewController {
 
 // MARK: - ProfileViewDelegate
 extension SettingsViewController: SettingsViewDelegate {
+    
     func settingsView(_ view: SettingsView, backButtonPressed button: UIButton) {
-        print("backButtonPressed")
+        navigationController?.popViewController(animated: true)
     }
     
     func settingsView(_ view: SettingsView, editPhotoPressed button: UIButton) {
