@@ -52,6 +52,7 @@ extension CGFloat {
     static let barrierHeight = barrierWidth
     
     static let buttonCornerRadius: CGFloat = 10
+    static let labelCornerRadius: CGFloat = 4
     
     static let leftRightButtonWidth: CGFloat = 60
     static let leftRightButtonHeight: CGFloat = 60

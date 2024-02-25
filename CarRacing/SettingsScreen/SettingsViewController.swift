@@ -352,6 +352,7 @@ extension SettingsViewController {
     
     @objc func backButtonPressed() {
         navigationController?.popViewController(animated: true)
+        navigationController?.isNavigationBarHidden = false
     }
     
     @objc func editPhotoPressed(_ sender: UIButton) {
@@ -416,23 +417,23 @@ extension SettingsViewController {
     
     private func updateUserAvatar(avatarString: String) {
         
-        guard let currentUserName = UserDefaults.standard.string(forKey: "userName"),
-              let currentDateOfBirth = UserDefaults.standard.string(forKey: "userName") else { return }
-        
-        var usersWithoutCurrent = usersArray.filter {$0.userName != currentUserName }
-        let userWithChangedAvatar = UsersDataModel(userName: currentUserName, dateOfBirth: currentDateOfBirth, userAvatarLocalPath: avatarString)
-        
-        usersWithoutCurrent.append(userWithChangedAvatar)
-        
-        let encoder = PropertyListEncoder()
-        
-        do {
-            let data = try encoder.encode(usersWithoutCurrent)
-            try data.write(to: dataFilePath!)
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+//        guard let currentUserName = UserDefaults.standard.string(forKey: "userName"),
+//              let currentDateOfBirth = UserDefaults.standard.string(forKey: "userName") else { return }
+//        
+//        var usersWithoutCurrent = usersArray.filter {$0.userName != currentUserName }
+//        let userWithChangedAvatar = UsersDataModel(userName: currentUserName, dateOfBirth: currentDateOfBirth, userAvatarLocalPath: avatarString)
+//        
+//        usersWithoutCurrent.append(userWithChangedAvatar)
+//        
+//        let encoder = PropertyListEncoder()
+//        
+//        do {
+//            let data = try encoder.encode(usersWithoutCurrent)
+//            try data.write(to: dataFilePath!)
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//        }
     }
     
     private func safeLoadAndUpdateUserAvatar() {
@@ -498,7 +499,6 @@ extension SettingsViewController {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolbar.items = [flexibleSpace, doneButton]
         dateOfBirthTextField.inputAccessoryView = toolbar
-        
         dateOfBirthTextField.inputView = datePicker
     }
     

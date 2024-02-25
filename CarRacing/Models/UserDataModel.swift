@@ -8,7 +8,9 @@
 import Foundation
 
 struct UsersDataModel: Codable {
-    var userName : String
-    var dateOfBirth : String
+    var userName : String?
+    var dateOfBirth : String?
     var userAvatarLocalPath : String?
+    var points: Int?
+    var gameDate: String?
 }
