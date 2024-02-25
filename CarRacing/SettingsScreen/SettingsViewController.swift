@@ -194,11 +194,12 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        hideKeyboardWhenTappedAround()
         setSubviews()
         setUpConstraints()
         setupTextFields()
+        hideKeyboardWhenTappedAround()
         registerForKeyBoardNotifications()
+        setupPhotoPicker()
         setupDatePicker()
     }
     
@@ -378,7 +379,7 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
+        let image = info[.originalImage] as! UIImage
         updateUserAvatar(avatarString: saveNewUserAvatar(image: image)!)
         photoImage.image = image
         picker.dismiss(animated: true, completion: nil)
