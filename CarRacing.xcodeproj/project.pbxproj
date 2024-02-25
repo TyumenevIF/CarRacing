@@ -16,6 +16,7 @@
 		432EF1D12B825FBD00FF771B /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D02B825FBD00FF771B /* CGFloat.swift */; };
 		432EF1D32B82632E00FF771B /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D22B82632E00FF771B /* UIFont.swift */; };
 		432EF1D72B8518E600FF771B /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D62B8518E600FF771B /* Double.swift */; };
+		432EF2052B8A85CA00FF771B /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF2042B8A85CA00FF771B /* UserDataModel.swift */; };
 		439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B212B7545FF00C0BB35 /* AppDelegate.swift */; };
 		439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */; };
 		439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B252B7545FF00C0BB35 /* StartViewController.swift */; };
@@ -34,6 +35,7 @@
 		432EF1D02B825FBD00FF771B /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		432EF1D22B82632E00FF771B /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		432EF1D62B8518E600FF771B /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		432EF2042B8A85CA00FF771B /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		439F5B1E2B7545FF00C0BB35 /* CarRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439F5B212B7545FF00C0BB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		432EF2022B8A85A900FF771B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				432EF2042B8A85CA00FF771B /* UserDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		439F5B152B7545FF00C0BB35 = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				430E81DB2B756E190007004D /* Application */,
+				432EF2022B8A85A900FF771B /* Models */,
 				430E81DC2B756EA40007004D /* StartScreen */,
 				432EF1C02B77D29A00FF771B /* RaceScreen */,
 				432EF1C32B77D71200FF771B /* SettingsScreen */,
@@ -274,6 +285,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				432EF2052B8A85CA00FF771B /* UserDataModel.swift in Sources */,
 				439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */,
 				432EF1D12B825FBD00FF771B /* CGFloat.swift in Sources */,
 				432EF1C82B77D76600FF771B /* RecordsViewController.swift in Sources */,

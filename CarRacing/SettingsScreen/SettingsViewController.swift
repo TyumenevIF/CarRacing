@@ -16,6 +16,8 @@ final class SettingsViewController: UIViewController {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
     var imageLocalPath : String = ""
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Users.plist")
+    var usersArray = [UsersDataModel]()
     
     private lazy var backButton: UIButton = {
         let button = UIButton()
@@ -42,7 +44,8 @@ final class SettingsViewController: UIViewController {
     
     lazy var photoImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "avatar")
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.orange.cgColor
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
@@ -191,6 +194,7 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        hideKeyboardWhenTappedAround()
         setSubviews()
         setUpConstraints()
         setupTextFields()
@@ -205,6 +209,7 @@ final class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
+        safeLoadAndUpdateUserAvatar()
     }
     
     // MARK: - flow funcs
@@ -338,17 +343,6 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    private func save(image: UIImage) -> String? {
-        let fileName = "FileName"
-        let fileURL = documentsUrl.appendingPathComponent(fileName)
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            try? imageData.write(to: fileURL, options: .atomic)
-            return fileName // ----> Save fileName
-        }
-        print("Error saving image")
-        return nil
-    }
-    
 }
 
 // MARK: - target actions
@@ -384,19 +378,72 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-        guard let image = info[
-            UIImagePickerController.InfoKey.editedImage
-        ] as? UIImage else {
-            return
-        }
+        guard let image = info[.editedImage] as? UIImage else { return }
+        updateUserAvatar(avatarString: saveNewUserAvatar(image: image)!)
         photoImage.image = image
+        picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
 }
+
+extension SettingsViewController {
+    
+    private func loadUserAvatarImage(fileName: String) -> UIImage? {
+        let fileURL = documentsUrl.appendingPathComponent(fileName)
+        do {
+            let imageData = try Data(contentsOf: fileURL)
+            return UIImage(data: imageData)
+        } catch {
+            print("Error loading image : \(error)")
+        }
+        return nil
+    }
+    
+    private func saveNewUserAvatar (image: UIImage) -> String? {
+        let fileName = "FileName"
+        let fileURL = documentsUrl.appendingPathComponent(fileName)
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            try? imageData.write(to: fileURL, options: .atomic)
+            return fileName
+        }
+        print("Error saving image")
+        return nil
+    }
+    
+    private func updateUserAvatar(avatarString: String) {
+        
+        guard let currentUserName = UserDefaults.standard.string(forKey: "userName"),
+              let currentDateOfBirth = UserDefaults.standard.string(forKey: "userName") else { return }
+        
+        var usersWithoutCurrent = usersArray.filter {$0.userName != currentUserName }
+        let userWithChangedAvatar = UsersDataModel(userName: currentUserName, dateOfBirth: currentDateOfBirth, userAvatarLocalPath: avatarString)
+        
+        usersWithoutCurrent.append(userWithChangedAvatar)
+        
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(usersWithoutCurrent)
+            try data.write(to: dataFilePath!)
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func safeLoadAndUpdateUserAvatar() {
+        guard let imageName = UserDefaults.standard.string(forKey: "avatarLocalPath") else { return }
+        if imageName != "" {
+            self.photoImage.image = loadUserAvatarImage(fileName: imageName)
+        } else {
+            self.photoImage.image = UIImage(named: .avatar)
+        }
+    }
+}
+
 
 // MARK: - UITextFieldDelegate
 
@@ -407,33 +454,33 @@ extension SettingsViewController: UITextFieldDelegate {
     }
     
     func registerForKeyBoardNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(kbWillShow),
-                                               name: UIResponder.keyboardWillShowNotification, 
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(kbWillHide),
-                                               name: UIResponder.keyboardWillHideNotification, 
-                                               object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil
+        )
     }
     
     func removeKeyBoardNotification() {
-        NotificationCenter.default.removeObserver(self, 
-                                                  name: UIResponder.keyboardWillShowNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self, 
-                                                  name: UIResponder.keyboardWillHideNotification,
-                                                  object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc private func kbWillShow(_ notification: Notification, sender: UITextField) {
-        let userInfo = notification.userInfo
-        let keyBoardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        scrollView.contentOffset = CGPoint(x: 0, y: keyBoardFrameSize.height / 2)
+        if nameTextField.isEditing {
+        } else {
+            let userInfo = notification.userInfo
+            let keyBoardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+            scrollView.contentOffset = CGPoint(x: 0, y: keyBoardFrameSize.height / 2)
+        }
     }
     
     @objc private func kbWillHide(sender: UITextField) {
-        scrollView.contentOffset = CGPoint.zero
+        if nameTextField.isEditing {
+        } else {
+            scrollView.contentOffset = CGPoint.zero
+        }
     }
 }
 
@@ -442,20 +489,23 @@ extension SettingsViewController: UITextFieldDelegate {
 extension SettingsViewController {
     
     private func setupDatePicker() {
-        dateOfBirthTextField.datePicker(target: self,
-                                        doneAction: #selector(doneAction),
-                                        cancelAction: #selector(cancelAction),
-                                        datePickerMode: .date)
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolbar.items = [flexibleSpace, doneButton]
+        dateOfBirthTextField.inputAccessoryView = toolbar
+        
+        dateOfBirthTextField.inputView = datePicker
     }
     
-    @objc func cancelAction() {
-        dateOfBirthTextField.resignFirstResponder()
-    }
-    
-    @objc func doneAction() {
+    @objc func doneButtonTapped() {
+        
         if let datePickerView = self.dateOfBirthTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMMM yyyy"
+            dateFormatter.dateFormat = "dd.MM.yyyy"
             let dateString = dateFormatter.string(from: datePickerView.date)
             dateOfBirthTextField.text = dateString
             dateOfBirthTextField.resignFirstResponder()
@@ -463,48 +513,17 @@ extension SettingsViewController {
     }
 }
 
-extension UITextField {
+// MARK: - hide keyboard
+
+extension UIViewController {
     
-    func datePicker<T>(target: T,
-                       doneAction: Selector,
-                       cancelAction: Selector,
-                       datePickerMode: UIDatePicker.Mode = .date) {
-        let screenWidth = UIScreen.main.bounds.width
-        
-        func buttonItem(withSystemItemStyle style: UIBarButtonItem.SystemItem) -> UIBarButtonItem {
-            let buttonTarget = style == .flexibleSpace ? nil : target
-            let action: Selector? = {
-                switch style {
-                case .cancel:
-                    return cancelAction
-                case .done:
-                    return doneAction
-                default:
-                    return nil
-                }
-            }()
-            
-            let barButtonItem = UIBarButtonItem(barButtonSystemItem: style,
-                                                target: buttonTarget,
-                                                action: action)
-            return barButtonItem
-        }
-        
-        let datePicker = UIDatePicker(frame: CGRect(x: 0,
-                                                    y: 0,
-                                                    width: screenWidth,
-                                                    height: 216))
-        datePicker.datePickerMode = datePickerMode
-        self.inputView = datePicker
-        
-        let toolBar = UIToolbar(frame: CGRect(x: 0,
-                                              y: 00,
-                                              width: screenWidth,
-                                              height: 44))
-        toolBar.setItems([buttonItem(withSystemItemStyle: .cancel),
-                          buttonItem(withSystemItemStyle: .flexibleSpace),
-                          buttonItem(withSystemItemStyle: .done)],
-                         animated: true)
-        self.inputAccessoryView = toolBar
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

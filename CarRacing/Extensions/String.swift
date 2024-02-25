@@ -45,5 +45,8 @@ extension String {
     
     // screen
     static let startScreen = "start_screen"
+    
+    // user avatar
+    static let avatar = "avatar"
 }
 
