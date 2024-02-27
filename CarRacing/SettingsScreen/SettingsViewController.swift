@@ -12,9 +12,8 @@ final class SettingsViewController: UIViewController {
     
     // MARK: - let/var
     
-    var documentsUrl: URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    }
+    private let defaults = UserDefaults.standard
+    
     var imageLocalPath : String = ""
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Users.plist")
     var usersArray = [UsersDataModel]()
@@ -381,8 +380,10 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as! UIImage
-        updateUserAvatar(avatarString: saveNewUserAvatar(image: image)!)
+        guard let imageFileName = try? StorageManager().saveImage(image) else { return }
+        updateUserAvatar(avatarString: imageFileName)
         photoImage.image = image
+        print("Update avatar")
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -392,54 +393,34 @@ extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationC
 }
 
 extension SettingsViewController {
-    
-    private func loadUserAvatarImage(fileName: String) -> UIImage? {
-        let fileURL = documentsUrl.appendingPathComponent(fileName)
-        do {
-            let imageData = try Data(contentsOf: fileURL)
-            return UIImage(data: imageData)
-        } catch {
-            print("Error loading image : \(error)")
-        }
-        return nil
-    }
-    
-    private func saveNewUserAvatar (image: UIImage) -> String? {
-        let fileName = "FileName"
-        let fileURL = documentsUrl.appendingPathComponent(fileName)
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
-            try? imageData.write(to: fileURL, options: .atomic)
-            return fileName
-        }
-        print("Error saving image")
-        return nil
-    }
-    
+        
     private func updateUserAvatar(avatarString: String) {
         
-//        guard let currentUserName = UserDefaults.standard.string(forKey: "userName"),
-//              let currentDateOfBirth = UserDefaults.standard.string(forKey: "userName") else { return }
-//        
-//        var usersWithoutCurrent = usersArray.filter {$0.userName != currentUserName }
-//        let userWithChangedAvatar = UsersDataModel(userName: currentUserName, dateOfBirth: currentDateOfBirth, userAvatarLocalPath: avatarString)
-//        
-//        usersWithoutCurrent.append(userWithChangedAvatar)
-//        
-//        let encoder = PropertyListEncoder()
-//        
-//        do {
-//            let data = try encoder.encode(usersWithoutCurrent)
-//            try data.write(to: dataFilePath!)
-//        }
-//        catch {
-//            print(error.localizedDescription)
-//        }
+        guard let currentUserName = defaults.value(forKey: "userName") as? String,
+              let currentDateOfBirth = defaults.value(forKey: "dateOfBirth") as? String else { return }
+
+        var usersWithoutCurrent = usersArray.filter { $0.userName != currentUserName }
+        let userWithChangedAvatar = UsersDataModel(userName: currentUserName,
+                                                   dateOfBirth: currentDateOfBirth,
+                                                   userAvatarLocalPath: avatarString)
+
+        usersWithoutCurrent.append(userWithChangedAvatar)
+
+        let encoder = PropertyListEncoder()
+
+        do {
+            let data = try encoder.encode(usersWithoutCurrent)
+            try data.write(to: dataFilePath!)
+        }
+        catch {
+            print(error.localizedDescription)
+        }
     }
     
     private func safeLoadAndUpdateUserAvatar() {
-        guard let imageName = UserDefaults.standard.string(forKey: "avatarLocalPath") else { return }
+        guard let imageName = defaults.value(forKey: "avatarLocalPath") as? String else { return }
         if imageName != "" {
-            self.photoImage.image = loadUserAvatarImage(fileName: imageName)
+            self.photoImage.image = StorageManager().loadImage(from: imageName)
         } else {
             self.photoImage.image = UIImage(named: .avatar)
         }

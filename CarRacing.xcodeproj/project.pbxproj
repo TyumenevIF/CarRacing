@@ -12,13 +12,15 @@
 		432EF1C22B77D2C800FF771B /* RaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C12B77D2C800FF771B /* RaceViewController.swift */; };
 		432EF1C62B77D73E00FF771B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C52B77D73E00FF771B /* SettingsViewController.swift */; };
 		432EF1C82B77D76600FF771B /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1C72B77D76600FF771B /* RecordsViewController.swift */; };
-		432EF1CC2B821B2A00FF771B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1CB2B821B2900FF771B /* String.swift */; };
-		432EF1D12B825FBD00FF771B /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D02B825FBD00FF771B /* CGFloat.swift */; };
-		432EF1D32B82632E00FF771B /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D22B82632E00FF771B /* UIFont.swift */; };
-		432EF1D72B8518E600FF771B /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D62B8518E600FF771B /* Double.swift */; };
+		432EF1CC2B821B2A00FF771B /* String+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1CB2B821B2900FF771B /* String+extensions.swift */; };
+		432EF1D12B825FBD00FF771B /* CGFloat+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D02B825FBD00FF771B /* CGFloat+extensions.swift */; };
+		432EF1D32B82632E00FF771B /* UIFont+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D22B82632E00FF771B /* UIFont+extensions.swift */; };
+		432EF1D72B8518E600FF771B /* Double+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF1D62B8518E600FF771B /* Double+extensions.swift */; };
 		432EF2052B8A85CA00FF771B /* UserDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432EF2042B8A85CA00FF771B /* UserDataModel.swift */; };
 		434E8D912B8B9810004816BC /* RecordsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E8D902B8B9810004816BC /* RecordsAPI.swift */; };
 		434E8D932B8B9B27004816BC /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E8D922B8B9B27004816BC /* RecordTableViewCell.swift */; };
+		434E8D972B8D2A25004816BC /* UserDefaults+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E8D962B8D2A25004816BC /* UserDefaults+extensions.swift */; };
+		434E8D9A2B8D314E004816BC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434E8D992B8D314E004816BC /* StorageManager.swift */; };
 		439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B212B7545FF00C0BB35 /* AppDelegate.swift */; };
 		439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */; };
 		439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439F5B252B7545FF00C0BB35 /* StartViewController.swift */; };
@@ -33,13 +35,15 @@
 		432EF1C12B77D2C800FF771B /* RaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaceViewController.swift; sourceTree = "<group>"; };
 		432EF1C52B77D73E00FF771B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		432EF1C72B77D76600FF771B /* RecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
-		432EF1CB2B821B2900FF771B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		432EF1D02B825FBD00FF771B /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
-		432EF1D22B82632E00FF771B /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
-		432EF1D62B8518E600FF771B /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		432EF1CB2B821B2900FF771B /* String+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extensions.swift"; sourceTree = "<group>"; };
+		432EF1D02B825FBD00FF771B /* CGFloat+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+extensions.swift"; sourceTree = "<group>"; };
+		432EF1D22B82632E00FF771B /* UIFont+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extensions.swift"; sourceTree = "<group>"; };
+		432EF1D62B8518E600FF771B /* Double+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+extensions.swift"; sourceTree = "<group>"; };
 		432EF2042B8A85CA00FF771B /* UserDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModel.swift; sourceTree = "<group>"; };
 		434E8D902B8B9810004816BC /* RecordsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsAPI.swift; sourceTree = "<group>"; };
 		434E8D922B8B9B27004816BC /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
+		434E8D962B8D2A25004816BC /* UserDefaults+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+extensions.swift"; sourceTree = "<group>"; };
+		434E8D992B8D314E004816BC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		439F5B1E2B7545FF00C0BB35 /* CarRacing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarRacing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		439F5B212B7545FF00C0BB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		439F5B232B7545FF00C0BB35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,10 +115,11 @@
 		432EF1CD2B825F4500FF771B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				432EF1CB2B821B2900FF771B /* String.swift */,
-				432EF1D02B825FBD00FF771B /* CGFloat.swift */,
-				432EF1D22B82632E00FF771B /* UIFont.swift */,
-				432EF1D62B8518E600FF771B /* Double.swift */,
+				432EF1CB2B821B2900FF771B /* String+extensions.swift */,
+				432EF1D02B825FBD00FF771B /* CGFloat+extensions.swift */,
+				432EF1D22B82632E00FF771B /* UIFont+extensions.swift */,
+				432EF1D62B8518E600FF771B /* Double+extensions.swift */,
+				434E8D962B8D2A25004816BC /* UserDefaults+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -126,6 +131,14 @@
 				434E8D902B8B9810004816BC /* RecordsAPI.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		434E8D982B8D312B004816BC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				434E8D992B8D314E004816BC /* StorageManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		439F5B152B7545FF00C0BB35 = {
@@ -155,6 +168,7 @@
 				432EF1C02B77D29A00FF771B /* RaceScreen */,
 				432EF1C32B77D71200FF771B /* SettingsScreen */,
 				432EF1C42B77D72300FF771B /* RecordsScreen */,
+				434E8D982B8D312B004816BC /* Services */,
 				432EF1CD2B825F4500FF771B /* Extensions */,
 			);
 			path = CarRacing;
@@ -291,20 +305,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				434E8D9A2B8D314E004816BC /* StorageManager.swift in Sources */,
 				432EF2052B8A85CA00FF771B /* UserDataModel.swift in Sources */,
 				439F5B262B7545FF00C0BB35 /* StartViewController.swift in Sources */,
 				434E8D932B8B9B27004816BC /* RecordTableViewCell.swift in Sources */,
-				432EF1D12B825FBD00FF771B /* CGFloat.swift in Sources */,
+				432EF1D12B825FBD00FF771B /* CGFloat+extensions.swift in Sources */,
 				434E8D912B8B9810004816BC /* RecordsAPI.swift in Sources */,
 				432EF1C82B77D76600FF771B /* RecordsViewController.swift in Sources */,
 				439F5B222B7545FF00C0BB35 /* AppDelegate.swift in Sources */,
 				432EF1C22B77D2C800FF771B /* RaceViewController.swift in Sources */,
-				432EF1D32B82632E00FF771B /* UIFont.swift in Sources */,
+				432EF1D32B82632E00FF771B /* UIFont+extensions.swift in Sources */,
 				439F5B242B7545FF00C0BB35 /* SceneDelegate.swift in Sources */,
+				434E8D972B8D2A25004816BC /* UserDefaults+extensions.swift in Sources */,
 				430E81DE2B7570FF0007004D /* StartView.swift in Sources */,
 				432EF1C62B77D73E00FF771B /* SettingsViewController.swift in Sources */,
-				432EF1D72B8518E600FF771B /* Double.swift in Sources */,
-				432EF1CC2B821B2A00FF771B /* String.swift in Sources */,
+				432EF1D72B8518E600FF771B /* Double+extensions.swift in Sources */,
+				432EF1CC2B821B2A00FF771B /* String+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
